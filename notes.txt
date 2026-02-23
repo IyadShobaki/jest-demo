@@ -1,0 +1,125 @@
+ 
+ toBe() is used to compare primitive values and object references:
+ // tests will pass
+  expect('Expectation').toBe('Expectation');
+
+  const a = {};
+  const b = a;
+  expect(a).toBe(b); 
+
+  // tests won't pass
+  expect('Expectation').toBe('Reality');
+
+  const a = {};
+  const b = {};
+  expect(a).toBe(b);
+
+
+  -------------
+  toEqual() is used to compare objects and arrays.
+
+  // tests will pass
+  expect({ a: undefined, b: 10, c: 'text' }).toEqual({ b: 10, c: 'text' });
+  expect([1, 2, 3]).toEqual([1, 2, 3]); 
+  expect([[undefined, 1]]).toEqual([[, 1]]) // the first element is missing in the second array
+
+  // tests won't pass
+  expect({ a: undefined, b: 10, c: 'text' }).toEqual({ a: 12, b: 10, c: 'text' });
+  expect([1, 2, 3, undefined]).toEqual([1, 2, 3]); // arrays do not match in length
+-----------
+toStrictEqual() is also used to compare objects and arrays, but "more strictly."
+
+  // tests will pass
+  expect({ b: 10, c: 'text' }).toStrictEqual({ b: 10, c: 'text' });
+  expect([3, 4, undefined]).toStrictEqual([3, 4, undefined]);
+
+  // tests won't pass
+  expect({ a: undefined, b: 10, c: 'text' }).toStrictEqual({ b: 10, c: 'text' });
+  expect([[undefined,  1]]).toStrictEqual([[, 1]])
+
+  ---------------
+  toBeTruthy() and toBeFalsy() check that the output is true or false, respectively:
+
+    // tests will pass
+  expect(1).toBeTruthy();
+  expect(true).toBeTruthy();
+  expect(undefined).toBeFalsy();
+  expect(1/'string').toBeFalsy();
+
+  // tests won't pass
+  expect(null).toBeTruthy();
+  expect(0).toBeTruthy();
+  expect(true).toBeFalsy();
+
+  ---------
+  toBeUndefined() and toBeDefined() compare the output with undefined.
+
+    // tests will pass
+  expect(1).toBeDefined();
+  expect(null).toBeDefined();
+  expect('string').toBeDefined();
+
+  // tests won't pass
+  const x;
+
+  expect(x).toBeDefined();
+  expect(undefined).toBeDefined();
+
+  -----------
+
+  toBeNull() checks that the output is null:
+
+   // tests will pass
+  const x = null;
+
+  expect(null).toBeNull();
+  expect(x).toBeNull();
+
+  // tests won't pass
+  expect(0).toBeNull();
+  expect(undefined).toBeNull();
+  expect('string').toBeNull();
+
+  -------
+  toMatch() checks whether a string matches a regular expression:
+
+  // tests will pass
+  expect('1').toMatch(/^\d+$/);
+  expect('1337').toMatch(/^\d+$/);
+  expect('4242').toMatch(/^\d+$/);
+
+  // tests won't pass
+  expect('21as1').toMatch(/^\d+$/);
+  expect('string').toMatch(/^\d+$/);
+
+  ----------------
+  toContain() checks whether the resulting array contains the value we specify. It works with strings too:
+
+   // these tests will pass
+  expect('Oh, hi Mark!').toContain('Mark');
+  expect(['Mary', 'Louisa', 'Stuart']).toContain('Stuart');
+
+  // these tests won't pass
+  expect('Oh, hi Mark!').toContain('Lisa');
+  expect(['Mary', 'Louisa', 'Stuart']).toContain('Louise');
+
+  --------------------
+  toBeGreaterThan(), toBeGreaterThanOrEqual(), toBeLessThan(), and toBeLessThanOrEqual() are mathematical comparison operators. They compare the output with the number you pass to the method:
+
+        // tests will pass because...
+
+      expect(2).toBeGreaterThan(1);        // 2 is greater than 1
+      expect(2).toBeLessThan(3);           // 2 is less than 3
+      expect(2).toBeGreaterThanOrEqual(2); // 2 is equal to 2
+      expect(2).toBeLessThanOrEqual(2); // 2 is equal to 2
+
+      // tests won't pass because...
+
+      expect(2).toBeGreaterThan(2);        // 2 is not greater than 2
+      expect(2).toBeLessThan(2);           // 2 is not less than 2
+      expect(2).toBeGreaterThanOrEqual(3); // 2 is not greater than or equal to 3
+      expect(2).toBeLessThanOrEqual(1);    // 2 is not less than or equal to 1
+
+      ---------------------------
+
+      
